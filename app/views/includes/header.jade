@@ -1,0 +1,55 @@
+.container
+  .row
+    .page-header
+      h1 #{title}
+      small 重度科幻迷
+.navbar.navbar-default.navbar-fixed-bottom
+  .container
+    .navbar-header
+      a.navbar-brand(href='/') 重度科幻迷
+    - if (user)
+      .navbar-text.navbar-right
+        span 欢迎您,#{user.name}
+          span &nbsp;|&nbsp;
+        a.navbar-link(href='/user/logout') 注销
+    - else
+      .navbar-text.navbar-right
+        a.navbar-link(href='#',data-toggle='modal',data-target='#signupModal') 注册
+        span &nbsp;|&nbsp;
+        a.navbar-link(href='#',data-toggle='modal',data-target='#signinModal') 登录
+#signupModal.modal.fade
+  .modal-dialog
+    .modal-content
+      form#signup(method="POST",action="/user/signup")
+        .modal-header 注册
+        .modal-body
+          .form-group
+            label(for="signupName") 用户名
+            input#signupName.form-control(name="user[name]",type="text",placeholder="6为英文或数字以上")
+          .form-group
+            label(for="signupPassword") 密码
+            input#signupPassword.form-control(name="user[password]",type="password",placeholder="6为英文或数字以上")
+        .modal-footer
+          .text-center
+            span.upInfo
+          button.btn.btn-default(type="button",data-dismiss="modal") 关闭
+          button.btn.btn-success.upsub(type="button") 提交
+#signinModal.modal.fade
+  .modal-dialog
+    .modal-content
+      form#signin(method="POST",action="/user/signin")
+        .modal-header 登录
+        .modal-body
+          .form-group
+            label(for="signinName") 用户名
+            input#signinName.form-control(name="user[name]",type="text")
+          .form-group
+            label(for="signinPassword") 密码
+            input#signinPassword.form-control(name="user[password]",type="password")
+        .modal-footer
+          .text-center
+            span.inInfo
+          button.btn.btn-default(type="button",data-dismiss="modal") 关闭
+          button.btn.btn-success(type="submit") 登录
+
+script(src="/js/user.js")
